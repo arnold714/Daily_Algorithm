@@ -1,6 +1,6 @@
 # Daily_Algorithm
 ##### :small_orange_diamond: SW 문제해결 역량 향상을 목표로 합니다.
-##### :small_orange_diamond: 코드 이외의 추가적인 문제 해설은 [블로그](https://blog.naver.com/maui2005)에 포스팅하고 있습니다.
+##### :small_orange_diamond: 코드 이외의 추가적인 문제 해설은 [블로그](https://blog.naver.com/arnold714)에 포스팅하고 있습니다.
 
 <br>
 <br>
@@ -11,4 +11,6 @@
 
 |문제 번호|블로그 해설|
 |---|---|
-|2580|[스도쿠](https://blog.naver.com/maui2005/222711879970)|
+|1253|[좋다](https://blog.naver.com/arnold714/223312796939)|
+|11003|[최솟값 찾기](https://blog.naver.com/arnold714/223311428860)|
+|1874|[스택 수열](https://blog.naver.com/arnold714/223312796939)|
