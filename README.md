@@ -14,3 +14,4 @@
 |1253|[좋다](https://blog.naver.com/arnold714/223312796939)|
 |11003|[최솟값 찾기](https://blog.naver.com/arnold714/223311428860)|
 |1874|[스택 수열](https://blog.naver.com/arnold714/223312796939)|
+|17298|[오큰수 구하기](https://blog.naver.com/arnold714/223313728019)|
