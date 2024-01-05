@@ -1,6 +1,3 @@
-import sys
-input = sys.stdin.readline
-
 n = int(input())
 a = list(map(int,input().split()))
 answer = [0] * n
@@ -20,6 +17,4 @@ while stack:
 result = ""
     
 for i in range(n):
-    result += str(answer[i])+ " "
-
-print(result)        
+    print(answer[i], end=" ")       
