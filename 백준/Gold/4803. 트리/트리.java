@@ -1,95 +1,113 @@
+
+
 import java.io.*;
 import java.util.*;
 
-public class Main {
-    static List<ArrayList<Integer>> graph;
-    static boolean[] visited;
+public class Main{
 
-    public static void main(String[] args) throws IOException {
-        BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
-        BufferedWriter bw = new BufferedWriter(new OutputStreamWriter(System.out));
-        StringTokenizer stz;
+static ArrayList<Integer>[] list;
+static int answer;
+static int[] group;
+static int[] edge;
+static boolean[] visited;
+static int N;
+static int num = 1;
 
-        int testCase = 1;
+public static void main(String[] args) throws IOException {
+    BufferedReader br = new BufferedReader(new InputStreamReader(System.in));
+    StringTokenizer st;
+    StringBuilder sb = new StringBuilder();
+    while (true) {
+        answer = 0;
+        st = new StringTokenizer(br.readLine());
+        N = Integer.parseInt(st.nextToken());
+        int M = Integer.parseInt(st.nextToken());
+        if (N == 0 && M == 0) {
+            break;
+        }
+        list = new ArrayList[N + 1];
+        group = new int[N + 1];
+        edge = new int[N + 1];
+        visited = new boolean[N + 1];
+        for (int n = 1; n <= N; n++) {
+            list[n] = new ArrayList<>();
+        }
 
-        while (true) {
-            stz = new StringTokenizer(br.readLine(), " ");
+        for (int m = 0; m < M; m++) {
+            st = new StringTokenizer(br.readLine());
+            int start = Integer.parseInt(st.nextToken());
+            int end = Integer.parseInt(st.nextToken());
 
-            int n = Integer.parseInt(stz.nextToken());
-            int m = Integer.parseInt(stz.nextToken());
+            if (group[start] == 0 && group[end] == 0) {
+                group[start] = start < end ? start : end;
+                group[end] = group[start];
+                edge[group[start]]++;
 
-            // 0 0이면 종료
-            if (n == 0 && m == 0) break;
+            } else if (group[start] == 0) {
+                group[start] = group[end];
+                edge[group[start]]++;
+            } else if (group[end] == 0) {
+                group[end] = group[start];
+                edge[group[start]]++;
+            } else if (group[start] != group[end]) {
+            	
+                if (group[start] < group[end]) {
+                    edge[group[start]] += edge[group[end]] + 1;
+                    edge[group[end]] = 0;
+                    int x = group[end];
+                    for (int i = 1; i <= N; i++) {
+                    	
+                        if (group[i] == x) {
+                            group[i] = group[start];
+                        }
+                    }
+                } else if (group[start] > group[end]) {
+                    edge[group[end]] += edge[group[start]] + 1;
+                    edge[group[start]] = 0;
+                    int x = group[start];
 
-            graph = new ArrayList<>();
-            for (int i = 0; i < n + 1; i++) {
-                graph.add(new ArrayList<>());
-            }
-
-            visited = new boolean[n + 1];
-
-            // 입력값으로 그래프를 만듦
-            for (int i = 0; i < m; i++) {
-                stz = new StringTokenizer(br.readLine(), " ");
-                int a = Integer.parseInt(stz.nextToken());
-                int b = Integer.parseInt(stz.nextToken());
-
-                graph.get(a).add(b);
-                graph.get(b).add(a);
-            }
-
-            // 아직 방문하지 않은 노드들을 확인해 트리인지 확인
-            // 루트 노드만 있어도 트리임
-            int tree = 0;
-            for (int i = 1; i < n + 1; i++) {
-                if (!visited[i]) {
-                    tree += checkTree(i);
+                    for (int i = 1; i <= N; i++) {
+                        if (group[i] == x) {
+                            group[i] = group[end];
+                        }
+                    }
                 }
-            }
-            bw.write("Case " + testCase + ": ");
 
-            if (tree > 1) {
-                bw.write("A forest of " + tree + " trees.");
-            } else if (tree == 1) {
-                bw.write("There is one tree.");
             } else {
-                bw.write("No trees.");
+                edge[group[start]]++;
             }
-            bw.write("\n");
-
-            testCase++;
         }
-
-        bw.flush();
-        bw.close();
-        br.close();
-    }
-
-    // 트리일 경우 n = e+1
-    private static int checkTree(int root) {
-        Queue<Integer> qu = new LinkedList<>();
-        int node = 0;
-        int edge = 0;
-
-        qu.add(root);
-
-        while (!qu.isEmpty()) {
-            int cn = qu.poll();
-
-            if (visited[cn]) continue;
-            visited[cn] = true;
-            node++;
-
-            for (int i = 0; i < graph.get(cn).size(); i++) {
-                int nn = graph.get(cn).get(i);
-                edge++;
-                if (!visited[nn]) {
-                    qu.add(nn);
+        
+        for (int n = 1; n <= N; n++) {
+            if(group[n]==0) {
+                answer++;
+                continue;
+            }
+            if (visited[group[n]]) {
+                continue;
+            }
+            int member = 0;
+            visited[group[n]] = true;
+            
+            for (int i = 1; i <= N; i++) {
+                if (group[i] == group[n]) {
+                    member++;
                 }
             }
+            if (member - edge[group[n]] == 1) {
+                answer++;
+            }
         }
-
-        // 무방향 그래프 이므로 (e/2)해야 함
-        return (edge / 2) + 1 == node ? 1 : 0;
+        sb.append("Case " + (num++) + ": ");
+        if (answer == 0) {
+            sb.append("No trees.\n");
+        } else if (answer == 1) {
+            sb.append("There is one tree.\n");
+        } else {
+            sb.append("A forest of " + answer + " trees.\n");
+        }
     }
+
+    System.out.println(sb.toString());
+}
 }
