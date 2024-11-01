@@ -19,6 +19,8 @@ public class Main {
         for(int m = 0 ; m < M ; m++){
             st = new StringTokenizer(br.readLine());
             long x = Integer.parseInt(st.nextToken());
+            a = N-1;
+            b = 0;
             bnTree1(x);
             bnTree2(x);
             if(arr[a]==x || arr[b]==x){
