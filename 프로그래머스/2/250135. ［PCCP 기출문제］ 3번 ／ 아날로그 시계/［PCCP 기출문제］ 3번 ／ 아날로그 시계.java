@@ -16,7 +16,6 @@ class Solution {
         if(h == s || m == s){
             answer++;
         }
-        System.out.println(h + ":" + m + ":" + s);
         for(int sec = 1 ; sec <= finsec - startsec ; sec++){
             if(h > s && h + vhour <= s + vsec 
                && m > s && m + vmin <= s + vsec 
@@ -35,7 +34,6 @@ class Solution {
             s = (s + vsec) % 43200;
             
         }
-        System.out.println(h + ":" + m + ":" + s);
         return answer;
     }
 }
